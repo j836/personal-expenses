@@ -10,7 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 
-        <style>
+        <!-- <style>
             body {
                 display:flex;
                 justify-content: center;
@@ -19,7 +19,7 @@
                 flex-direction: column;
             }
 
-        </style>
+        </style> -->
         
     </head>
     <body>
@@ -27,92 +27,59 @@
             <span class="navbar-brand mb-0 h1">KharchaBook</span>
         </nav>
         <div class="container-fluid bg-light" style="min-height: 100vh;">
-            <!-- The .container-fluid class provides a full width container, spanning the entire width of the viewport -->
             <div class="container">
-                <div class="jumbotron mt-4">
-                    <!-- mt is margin-top -->
-                    <div class="input-group mb-3">
-                        <input 
-                                type="text"
-                                class="form-control"
-                                placeholder="Amount Spent"
-                                aria-label="Amount Spent"
-                                aria-describedby="spent in rupee"
-                        >
-                        <div class="input-group-append">
-                            <span class="input-group-text" id="spent in rupee">₹</span>
-                        </div>
-                    </div>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="spent at">@</span>
-                        </div>
-                        <input 
-                                type="text"
-                                placeholder="Spent On"
-                                class="form-control"
-                                aria-label="Spent On"
-                                aria-describedby="Spent At"
-                        />
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-primary" type="button" id="button-addon2">Add</button>
-                        </div>
+
+            <h1 id="displayExpense">0</h1>
+            
+
+            <div class="jumbotron mt-4">
+                <!-- mt is margin-top -->
+                <div class="input-group mb-3">
+                    <input 
+                            id="inputAmount"
+                            type="text"
+                            class="form-control"
+                            placeholder="Amount Spent"
+                            aria-label="Amount Spent"
+                            aria-describedby="spent in rupee"
+                    >
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="spent in rupee">₹</span>
                     </div>
                 </div>
-            <div>
-                <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between">
-                        <div class="d-flex flex-column">
-                            Tshirt
-                            <small class="text-muted">March 11 2019</small>
-                            <!-- text-muted is faint grey -->
-                        </div> 
-                        <div>
-                            <span class="px-5">
-                                500
-                            </span>
-                            <!-- p - for classes that set padding x - for classes that set both *-left and *-right-->
-                            <button type="button" class="btn btn-outline-danger btn-sm">
-                                <i class="fas fa-trash-alt">
-                                    <!-- Not downloaded this library ..used cdn for this  -->
-                                </i>
-                            </button>
-                        </div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <div class="d-flex flex-column">
-                            Movie
-                            <small class="text-muted">
-                                Feb 12 2019
-                            </small>
-                        </div>
-                        <div>
-                            <span class="px-5">
-                                1500
-                            </span>
-                            <button type="button" class="btn btn-outline-danger btn-sm">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                        </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="spent at">@</span>
+                    </div>
+                    <input
+                            id="inputdescription" 
+                            type="text"
+                            placeholder="Spent On"
+                            class="form-control"
+                            aria-label="Spent On"
+                            aria-describedby="Spent At"
+                    />
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-primary" type="button" id="btnAddExpense">Add</button>
+                    </div>
+                </div>
+            </div>
 
-                    </li>
+            <div>
+                <ul class="list-group" id="expenseTable">
+
+
                 </ul>
             </div>
-        
         </div>
-
-
-        <h1 id="displayExpense">0</h1>
-        <input id="inputAmount" type="text"> 
-        <input id="inputdescription" type="text">
-        <button id="btnAddExpense">+</button>
-        <div id="expenseTable"></div>
+       
         
         <script>
             let totalExpense = 0;
             //Get the button element. 
             const element = document.getElementById("btnAddExpense");
 
+            //Get refer to heading 
             const dispexpense = document.querySelector("#displayExpense");
 
             dispexpense.textContent = totalExpense;
@@ -120,7 +87,7 @@
             //getting refernce to the inputdescription 
             const inputdesc = document.querySelector("#inputdescription");
 
-
+            //get refer to table
             const tableExpenseEl = document.querySelector("#expenseTable");
 
 
@@ -144,10 +111,9 @@
                 totalExpense = totalExpense + textAmount;
                 console.log(totalExpense);
 
-                // const displayExpense = document.getElementById("displayExpense").innerHTML=totalExpense;
-                //We can also achieve the same by :
+             
                 dispexpense.textContent = totalExpense;
-                //textContent sets the content of the selected
+              
 
                 const expenseItem = {
                     desc:textDescription,
@@ -155,44 +121,51 @@
                 }
                 allExpenses.push(expenseItem);
 
-                //set the heading element to totalExpense
+            
 
-                //Normal way
-                // const someText = "The expense for this month is " + totalExpense;
                 
-                //Pro ..This is known as Templating 
                 const someText = `The expense for this month is: ${totalExpense}`
                 dispexpense.textContent = someText;
 
                 //Show the table here
 
                 
-                const dataText = allExpenses.map((item) => {
-                    return `<div>${item.amount} :: ${item.desc}</div>`
-                }).join(" ");
+                const dataTextBeforeJoin = allExpenses.map((item) => createListItem(item))//destructuring);
+                dataText = dataTextBeforeJoin.join(" ");
                 console.log(dataText)
-                tableExpenseEl.innerHTML = dataText;
-                //only map returns array..in this case aray of strings but with join it returns a ne single  string ..
-                //If we perform join on array of strings it returns a one single string
-                //If no argument is passed it by defaukt takes comma and joins it by comma else takes the passed argument and joins the string by argument passed
+                tableExpenseEl.innerHTML = dataText;  
+            }      
 
-
-                // console.table(allExpenses);
-                //creates a table in the console with the allExpeneses object in the console.
-    
-            }
-            
-    
-    
-            //Listen to click event and pass the function to be called..
-            //This is via a callback..Like whenver a button(element in this case) is clicked Call addExpenseToTotal back(again)!
             element.addEventListener("click",addExpenseToTotal,false);
+
+
+            //View Layer
+            function createListItem({desc, amount}) {
+                console.log("function called")
+                return `
+                    <li class="list-group-item d-flex justify-content-between">
+                        <div class="d-flex flex-column">
+                            ${desc}
+                            <small class="text-muted">March 11 2019</small>
+                        </div> 
+                        <div>
+                            <span class="px-5">
+                                ${amount}
+                            </span>
+                            
+                            <button type="button" class="btn btn-outline-danger btn-sm">
+                                <i class="fas fa-trash-alt">
+                                </i>
+                            </button>
+                        </div>
+                    </li>`;
+            }
            
         </script>
-
+        <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
+        <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+        <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
     </body>
-    <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
-    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    
 </html>
