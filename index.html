@@ -93,7 +93,7 @@
 
 
 
-            const allExpenses = [];
+            let allExpenses = [];
 
             //on ButtonClick add inputAMount to totalExepnse
             function addExpenseToTotal() {
@@ -136,10 +136,12 @@
                 dispexpense.textContent = someText;
 
                 //Use Map and join
-                const dataTextBeforeJoin = allExpenses.map((item) => createListItem(item))//destructuring);
-                dataText = dataTextBeforeJoin.join(" ");
-                // console.log(dataText)
-                tableExpenseEl.innerHTML = dataText;  
+                // const dataTextBeforeJoin = allExpenses.map((item) => createListItem(item))//destructuring);
+                // dataText = dataTextBeforeJoin.join(" ");
+                // // console.log(dataText)
+                // tableExpenseEl.innerHTML = dataText; 
+
+                renderList(allExpenses) 
             }      
 
             element.addEventListener("click",addExpenseToTotal,false);
@@ -156,22 +158,60 @@
             }
 
             //Delete Item
-            function deleteItem(dateValue) {
+            /*
+            There are 2 ways to do delete an item
+            Remove an item from an array..This takes rearranging of array elements which takes a huge time complwxity
+            Or create a new Array with removed item..
+            The second is preferred.
+            */
+            function deleteItem(dateValue) 
+            {
                 console.log("Delete Item was called ", dateValue);
-
-                for(let i=0; i< allExpenses.length;i++)
-                {
-                    if(allExpenses[i].moment.valueOf() == dateValue)
-                    {
-                        console.log("Item found ",allExpenses[i])
-                    }
+                // const newarr = [];
+                // for(let i=0; i< allExpenses.length;i++)
+                // {
+                //     if(allExpenses[i].moment.valueOf() !== dateValue)
+                //     {
+                //         newarr.push(allExpenses[i])
+                        
+                //     }
                     
-                }
+                // }
+
+                // const newarr = allExpenses.filter((item) => {
+                //     if(item.moment.valueOf() !== dateValue) {
+                //         return item;
+                //     }
+                // })
+                allExpenses.map(item => {
+                    if(item.moment.valueOf() == dateValue)
+                    {
+                        totalExpense = totalExpense - item.amount;
+                    }
+                }) 
+
+                const newarr = allExpenses
+                                .filter(item => item.moment.valueOf() !== dateValue)
+                console.log(newarr);
+                allExpenses = newarr.slice();
+
+                
+
+                  renderList(newarr);
+
 
             }
 
 
             //View Layer
+
+            function renderList(arrOfList) {
+                const dataTextBeforeJoin = arrOfList.map((item) => createListItem(item))
+                const dataText = dataTextBeforeJoin.join(" ");
+                tableExpenseEl.innerHTML = dataText;
+                dispexpense.textContent = totalExpense
+                
+            }
             function createListItem({desc, amount , moment}) {
                 console.log("function called")
                 return `
