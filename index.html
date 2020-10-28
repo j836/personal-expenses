@@ -4,7 +4,11 @@
             Personal Expense
         </title>
         <link rel="stylesheet" href="main.css">
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="node_modules/bootstrap-social/bootstrap-social.css">
+        <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 
         <style>
             body {
@@ -19,6 +23,85 @@
         
     </head>
     <body>
+        <nav class="navbar navbar-dark bg-dark">
+            <span class="navbar-brand mb-0 h1">KharchaBook</span>
+        </nav>
+        <div class="container-fluid bg-light" style="min-height: 100vh;">
+            <!-- The .container-fluid class provides a full width container, spanning the entire width of the viewport -->
+            <div class="container">
+                <div class="jumbotron mt-4">
+                    <!-- mt is margin-top -->
+                    <div class="input-group mb-3">
+                        <input 
+                                type="text"
+                                class="form-control"
+                                placeholder="Amount Spent"
+                                aria-label="Amount Spent"
+                                aria-describedby="spent in rupee"
+                        >
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="spent in rupee">₹</span>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="spent at">@</span>
+                        </div>
+                        <input 
+                                type="text"
+                                placeholder="Spent On"
+                                class="form-control"
+                                aria-label="Spent On"
+                                aria-describedby="Spent At"
+                        />
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary" type="button" id="button-addon2">Add</button>
+                        </div>
+                    </div>
+                </div>
+            <div>
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between">
+                        <div class="d-flex flex-column">
+                            Tshirt
+                            <small class="text-muted">March 11 2019</small>
+                            <!-- text-muted is faint grey -->
+                        </div> 
+                        <div>
+                            <span class="px-5">
+                                500
+                            </span>
+                            <!-- p - for classes that set padding x - for classes that set both *-left and *-right-->
+                            <button type="button" class="btn btn-outline-danger btn-sm">
+                                <i class="fas fa-trash-alt">
+                                    <!-- Not downloaded this library ..used cdn for this  -->
+                                </i>
+                            </button>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <div class="d-flex flex-column">
+                            Movie
+                            <small class="text-muted">
+                                Feb 12 2019
+                            </small>
+                        </div>
+                        <div>
+                            <span class="px-5">
+                                1500
+                            </span>
+                            <button type="button" class="btn btn-outline-danger btn-sm">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+        
+        </div>
+
+
         <h1 id="displayExpense">0</h1>
         <input id="inputAmount" type="text"> 
         <input id="inputdescription" type="text">
@@ -104,13 +187,12 @@
             //Listen to click event and pass the function to be called..
             //This is via a callback..Like whenver a button(element in this case) is clicked Call addExpenseToTotal back(again)!
             element.addEventListener("click",addExpenseToTotal,false);
-       
-           
-            
-            
            
         </script>
 
 
     </body>
+    <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
+    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 </html>
