@@ -29,17 +29,17 @@
             let totalExpense = 0;
             //Get the button element. 
             const element = document.getElementById("btnAddExpense");
-            // console.log(element)
+
             const dispexpense = document.querySelector("#displayExpense");
-            // console.log(dispexpense)
+
             dispexpense.textContent = totalExpense;
     
             //getting refernce to the inputdescription 
             const inputdesc = document.querySelector("#inputdescription");
-            // console.log(inputdesc);
+
 
             const tableExpenseEl = document.querySelector("#expenseTable");
-            console.log(tableExpenseEl)
+
 
 
             const allExpenses = [];
@@ -49,11 +49,11 @@
                 //read value from inputAmount
                 
                 let textAmount = document.getElementById("inputAmount").value;
-                // console.log({textAmount})
+                
     
                 //Convert it to a number
                 textAmount =parseInt(textAmount,10);
-                // console.log({textAmount})
+                
 
                 const textDescription = inputdesc.value;
                 console.log({textDescription , textAmount});
@@ -72,7 +72,7 @@
                 }
                 allExpenses.push(expenseItem);
 
-                //set the heading element to totslExpense
+                //set the heading element to totalExpense
 
                 //Normal way
                 // const someText = "The expense for this month is " + totalExpense;
@@ -83,19 +83,17 @@
 
                 //Show the table here
 
-                const data1 = allExpenses[0];
-                const data2 = allExpenses[1];
+                
+                const dataText = allExpenses.map((item) => {
+                    return `<div>${item.amount} :: ${item.desc}</div>`
+                }).join(" ");
+                console.log(dataText)
+                tableExpenseEl.innerHTML = dataText;
+                //only map returns array..in this case aray of strings but with join it returns a ne single  string ..
+                //If we perform join on array of strings it returns a one single string
+                //If no argument is passed it by defaukt takes comma and joins it by comma else takes the passed argument and joins the string by argument passed
 
-                const data1Text = `${data1.amount} :: ${data1.desc}`;
-                const data2Text = `${data2.amount} :: ${data2.desc}`;
-                const tableText = `
-                <div>${data1Text}</div>  
-                <div>${data2Text}</div>`
 
-                // tableExpenseEl.textContent = tableText;
-                //textContent prints the div's as well from tableText..Thus we use InnerHTML
-
-                tableExpenseEl.innerHTML = tableText;
                 // console.table(allExpenses);
                 //creates a table in the console with the allExpeneses object in the console.
     
