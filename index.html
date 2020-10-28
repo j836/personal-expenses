@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <title>
+            Personal Expense
+        </title>
+        <link rel="stylesheet" href="main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <style>
+            body {
+                display:flex;
+                justify-content: center;
+                align-items:center;
+                height:100vh;
+                flex-direction: column;
+            }
+
+        </style>
+        
+    </head>
+    <body>
+        <h1 id="displayExpense">0</h1>
+        <input id="inputAmount" type="text"> 
+        <button id="btnAddExpense">+</button>
+        
+        <script>
+            let totalExpense = 0;
+            //Get the button element. 
+            const element = document.getElementById("btnAddExpense");
+            console.log(element)
+            const dispexpense = document.querySelector("#displayExpense");
+            console.log(dispexpense)
+            dispexpense.textContent = totalExpense;
+    
+            //on ButtonClick add inputAMount to totalExepnse
+            function addExpenseToTotal() {
+                //read value from inputAmount
+                
+                let textAmount = document.getElementById("inputAmount").value;
+                console.log({textAmount})
+    
+                //Convert it to a number
+                textAmount =parseInt(textAmount,10);
+                console.log({textAmount})
+    
+                totalExpense = totalExpense + textAmount;
+                console.log(totalExpense);
+                // const displayExpense = document.getElementById("displayExpense").innerHTML=totalExpense;
+                //We can also achieve the same by :
+                dispexpense.textContent = totalExpense;
+                //textContent sets the content of the selected tag
+    
+            }
+    
+    
+            //Listen to click event and pass the function to be called..
+            //This is via a callback..Like whenver a button(element in this case) is clicked Call addExpenseToTotal back(again)!
+            element.addEventListener("click",addExpenseToTotal,false);
+       
+           
+            
+            
+           
+        </script>
+
+
+    </body>
+</html>
