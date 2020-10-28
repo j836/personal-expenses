@@ -7,3 +7,6 @@ In getDateString we format the date and return the fornatted date back which is 
 And createListItem is called by every item present in expenseItemList.
 We achieve this with the help of map function which first returns an array of strings.
 But with the help of join function and (" ") <-- this as argument the work is done.
+----------------------------------------------------------------------------------------
+typeof new Date().valueOf is function
+typeof new Date().valueOf() is number as it reuturns a number
