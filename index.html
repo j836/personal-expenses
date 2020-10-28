@@ -25,11 +25,12 @@
     <body>
         <nav class="navbar navbar-dark bg-dark">
             <span class="navbar-brand mb-0 h1">KharchaBook</span>
+            <span class="navbar-brand mb-0 h1" id="displayExpense">0</span>
         </nav>
         <div class="container-fluid bg-light" style="min-height: 100vh;">
             <div class="container">
 
-            <h1 id="displayExpense">0</h1>
+            <!-- <h1 id="displayExpense">0</h1> -->
             
 
             <div class="jumbotron mt-4">
@@ -120,38 +121,53 @@
                     amount:textAmount
                 }
 
+                //Get current Date
                 expenseItem.moment = new Date();
-            const options = {
+                //This is done to change the formatting of the date as we want
+                const options = {
                 month:"long",
                 year:"numeric",
                 day:"numeric"
-            }
+                }
                 allExpenses.push(expenseItem);
 
-            
-
-                
-                const someText = `The expense for this month is: ${totalExpense}`
+                //Display text
+                const someText = `Total: ${totalExpense}`
                 dispexpense.textContent = someText;
 
-                //Show the table here
-
-                
+                //Use Map and join
                 const dataTextBeforeJoin = allExpenses.map((item) => createListItem(item))//destructuring);
                 dataText = dataTextBeforeJoin.join(" ");
-                console.log(dataText)
+                // console.log(dataText)
                 tableExpenseEl.innerHTML = dataText;  
             }      
 
             element.addEventListener("click",addExpenseToTotal,false);
 
-            //Controller functions 
+        //Controller functions
+
+            //moment is received from view layer  
             function getDateString(moment) {
                 return moment.toLocaleDateString('en-US',{
                     year:"numeric",
                     month:"long",
                     day:"numeric",
                 })
+            }
+
+            //Delete Item
+            function deleteItem(dateValue) {
+                console.log("Delete Item was called ", dateValue);
+
+                for(let i=0; i< allExpenses.length;i++)
+                {
+                    if(allExpenses[i].moment.valueOf() == dateValue)
+                    {
+                        console.log("Item found ",allExpenses[i])
+                    }
+                    
+                }
+
             }
 
 
@@ -169,7 +185,10 @@
                                 ${amount}
                             </span>
                             
-                            <button type="button" class="btn btn-outline-danger btn-sm">
+                            <button 
+                                type="button" 
+                                class="btn btn-outline-danger btn-sm"
+                                onClick="deleteItem(${moment.valueOf()})">
                                 <i class="fas fa-trash-alt">
                                 </i>
                             </button>
