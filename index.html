@@ -62,7 +62,12 @@
                             aria-describedby="Spent At"
                     />
                     <div class="input-group-append">
-                        <button class="btn btn-outline-primary" type="button" id="btnAddExpense">Add</button>
+                        <button 
+                        class="btn btn-outline-primary" 
+                        type="button" 
+                        id="btnAddExpense" 
+                        >Add
+                        </button>
                     </div>
                 </div>
             </div>
@@ -84,7 +89,7 @@
             //Get refer to heading 
             const dispexpense = document.querySelector("#displayExpense");
 
-            dispexpense.textContent = totalExpense;
+            dispexpense.textContent = `Total :${totalExpense}`;
     
             //getting refernce to the inputdescription 
             const inputdesc = document.querySelector("#inputdescription");
@@ -143,6 +148,10 @@
                 // tableExpenseEl.innerHTML = dataText; 
 
                 renderList(allExpenses) 
+                //After the elements are added to the cart , we set the input fields to blank..i.e. clear the 
+                //input fields AFTER totalExpenses are calculated and AFTER adding to the cart.
+                document.getElementById('inputdescription').value = '' 
+                document.getElementById('inputAmount').value = ''
             }      
 
             element.addEventListener("click",addExpenseToTotal,false);
@@ -210,7 +219,7 @@
                 const dataTextBeforeJoin = arrOfList.map((item) => createListItem(item))
                 const dataText = dataTextBeforeJoin.join(" ");
                 tableExpenseEl.innerHTML = dataText;
-                dispexpense.textContent = totalExpense
+                dispexpense.textContent = `Total:${totalExpense}`
                 
             }
             function createListItem({desc, amount , moment}) {
@@ -228,13 +237,13 @@
                             
                             <button 
                                 type="button" 
-                                class="btn btn-outline-danger btn-sm"
+                                class="btn btn-outline-danger btn-sm offset-10"
                                 onClick="deleteItem(${moment.valueOf()})">
-                                <i class="fas fa-trash-alt">
+                                <i class="fas fa-trash-alt ">
                                 </i>
                             </button>
                         </div>
-                    </li>`;
+                    </li><br>`;
             }
            
         </script>
